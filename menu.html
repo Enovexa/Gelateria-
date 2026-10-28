@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menu · Gelateria Cremona</title>
+<link rel="icon" type="image/png" href="glogo.png">
+<link rel="shortcut icon" type="image/png" href="glogo.png">
+<link rel="apple-touch-icon" href="glogo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=Alex+Brush&family=Marcellus&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FBF3E6;
+    --cream-deep:#F3E6D2;
+    --espresso:#2C160E;
+    --espresso-soft:#4A2A1A;
+    --sunset:#E8622C;
+    --sunset-soft:#F0824F;
+    --terracotta:#C97A3D;
+    --gold:#E3A857;
+    --white:#FFFDF9;
+    --blush:#F9DEDE;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    font-family:'Manrope',sans-serif;
+    background:var(--cream);
+    color:var(--espresso);
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---------- NAV ---------- */
+  .site-header{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    z-index:100;
+    display:grid;
+    grid-template-columns:1fr auto 1fr;
+    align-items:center;
+    padding:22px clamp(20px,4vw,56px) 0;
+  }
+
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    text-decoration:none;
+    color:var(--white);
+    grid-column:1;
+    justify-self:start;
+  }
+
+  .brand-mark{
+    width:56px;
+    height:56px;
+    flex-shrink:0;
+    object-fit:contain;
+  }
+
+  .brand-text{
+    display:flex;
+    flex-direction:column;
+    line-height:1;
+    margin-top:4px;
+  }
+
+  .brand-text .name{
+    font-family:'Marcellus','Trajan Pro',Georgia,serif;
+    font-weight:400;
+    font-size:34px;
+    letter-spacing:.5px;
+    line-height:1;
+    display:block;
+  }
+  .brand-text .name-sub{
+    display:block;
+    font-family:'Marcellus','Trajan Pro',Georgia,serif;
+    font-size:12px;
+    letter-spacing:6.5px;
+    text-transform:uppercase;
+    margin-top:4px;
+    padding-left:2px;
+  }
+
+  .brand-text .place{
+    font-size:9.5px;
+    letter-spacing:2.5px;
+    text-transform:uppercase;
+    opacity:.8;
+    margin-top:2px;
+    font-family:'Manrope',sans-serif;
+  }
+
+  .nav-pill{
+    grid-column:3;
+    justify-self:end;
+    display:flex;
+    align-items:center;
+    gap:2px;
+    background:var(--white);
+    border:1px solid rgba(44,22,14,0.08);
+    border-radius:999px;
+    padding:6px 10px;
+    box-shadow:0 8px 30px rgba(20,8,3,0.18);
+    transition:padding .35s ease;
+  }
+
+  .nav-pill:hover{
+    padding-left:26px;
+    padding-right:26px;
+  }
+
+  .nav-pill a{
+    color:var(--espresso);
+    text-decoration:none;
+    font-size:14px;
+    font-weight:500;
+    padding:8px 24px;
+    border-radius:999px;
+    transition:background .25s ease, color .25s ease, opacity .25s ease;
+    white-space:nowrap;
+  }
+
+  .nav-pill a:hover{
+    opacity:.6;
+  }
+
+  .nav-toggle{
+    display:none;
+    grid-column:3;
+    justify-self:end;
+  }
+
+  @media (max-width:860px){
+    .nav-pill{
+      position:fixed;
+      top:0;
+      right:0;
+      height:100vh;
+      width:min(78vw,320px);
+      background:var(--cream);
+      flex-direction:column;
+      align-items:flex-start;
+      justify-content:flex-start;
+      gap:0;
+      padding:120px 32px 40px;
+      border-radius:0;
+      box-shadow:-16px 0 40px rgba(20,8,3,0.22);
+      transform:translateX(100%);
+      transition:transform .4s ease;
+      border:none;
+    }
+    .nav-pill.open{
+      transform:translateX(0);
+    }
+    .nav-pill a{
+      color:var(--espresso);
+      padding:16px 6px;
+      font-size:16px;
+      border-bottom:none;
+      border-radius:0;
+      width:100%;
+    }
+    .nav-toggle{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      width:44px;
+      height:44px;
+      border-radius:999px;
+      background:rgba(255,253,249,0.16);
+      border:1px solid rgba(255,253,249,0.3);
+      z-index:200;
+      position:relative;
+      cursor:pointer;
+    }
+    .nav-toggle span{
+      display:block;
+      position:relative;
+      width:18px;
+      height:2px;
+      background:var(--white);
+    }
+    .nav-toggle span::before,
+    .nav-toggle span::after{
+      content:"";
+      position:absolute;
+      left:0;
+      width:18px;
+      height:2px;
+      background:var(--white);
+    }
+    .nav-toggle span::before{top:-6px;}
+    .nav-toggle span::after{top:6px;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    overflow:hidden;
+  }
+
+  .hero-bg{
+    position:absolute;
+    inset:0;
+    z-index:0;
+  }
+
+  .hero-bg img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transform-origin:center top;
+    animation:fadeUpIn 1.2s ease-out both;
+  }
+
+  @keyframes fadeUpIn{
+    from{
+      opacity:0;
+      transform:scale(1.06) translateY(-18px);
+    }
+    to{
+      opacity:1;
+      transform:scale(1) translateY(0);
+    }
+  }
+
+  .hero-bg::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(180deg, rgba(30,14,7,0.55) 0%, rgba(30,14,7,0.35) 35%, rgba(24,11,5,0.78) 100%);
+    z-index:1;
+  }
+
+  .menu-hero{
+    /* Fill the screen on any device; svh avoids the mobile address-bar jump */
+    min-height:100vh;
+    min-height:100svh;
+    max-height:980px;
+    display:flex;
+    align-items:flex-end;
+  }
+
+  .hero-bg img{
+    object-position:center 40%;
+  }
+
+  .hero-content{
+    position:relative;
+    z-index:2;
+    max-width:1240px;
+    margin:0 auto;
+    padding:150px clamp(20px,4vw,56px) clamp(56px,9vh,110px);
+    width:100%;
+  }
+
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    color:var(--gold);
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:16px;
+    letter-spacing:1px;
+    margin-bottom:26px;
+  }
+
+  .eyebrow::before{
+    content:"";
+    width:34px;
+    height:1px;
+    background:var(--gold);
+    margin-bottom:3px;
+  }
+
+  .hero h1{
+    font-family:'Playfair Display',serif;
+    font-weight:600;
+    color:#E8622C;
+    font-size:clamp(30px,4.6vw,56px);
+    line-height:1.08;
+    max-width:760px;
+    letter-spacing:-0.5px;
+  }
+
+  .hero h1 em{
+    font-style:italic;
+    font-weight:500;
+    color:var(--sunset-soft);
+  }
+
+  .hero p.lede{
+    margin-top:22px;
+    max-width:520px;
+    font-size:16px;
+    line-height:1.7;
+    color:rgba(255,253,249,0.86);
+  }
+
+  /* ---------- ITALIAN STYLE SENDER HEADING ---------- */
+  .menu-intro{
+    background:var(--cream);
+    padding:90px clamp(20px,4vw,56px) 20px;
+    text-align:center;
+  }
+
+  /* Generic scroll-triggered reveal classes (text + images) */
+  .reveal-up{
+    opacity:0;
+    transform:translateY(30px);
+    transition:opacity .8s ease-out, transform .8s ease-out;
+  }
+  .reveal-up.is-visible{
+    opacity:1;
+    transform:translateY(0);
+  }
+  .menu-intro-inner{max-width:820px;margin:0 auto;}
+  .sender-heading{
+    font-family:'Alex Brush', cursive;
+    font-size:clamp(48px,7.2vw,80px);
+    color:var(--sunset);
+    font-weight:400;
+    line-height:1.1;
+  }
+  .sender-subheading{
+    display:block;
+    margin-top:10px;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:clamp(16px,2vw,20px);
+    color:var(--espresso-soft);
+    letter-spacing:.3px;
+  }
+  .menu-intro-rule{
+    width:60px;
+    height:1px;
+    background:var(--gold);
+    margin:26px auto 0;
+  }
+
+  /* ---------- MENU GRID (ARCH CARDS, 4 PER ROW) ---------- */
+  .menu-grid-section{
+    background:var(--cream);
+    padding:70px clamp(20px,4vw,56px) 110px;
+  }
+  .menu-grid-container{max-width:1240px;margin:0 auto;}
+  .menu-grid{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,240px));
+    justify-content:center;
+    gap:70px 50px;
+  }
+  .menu-card{
+    text-align:left;
+    opacity:0;
+    transform:translateY(30px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  .menu-card.in-view{
+    opacity:1;
+    transform:translateY(0);
+  }
+  .menu-card-media{
+    position:relative;
+    width:100%;
+    aspect-ratio:3/4;
+    overflow:hidden;
+    border-radius:20px;
+    background:var(--cream-deep);
+  }
+  .menu-card-media img{
+    display:block;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:transform .6s ease;
+  }
+  .menu-card:hover .menu-card-media img{
+    transform:scale(1.05);
+  }
+  .menu-card-badges{
+    position:absolute;
+    right:14px;
+    bottom:16px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    align-items:center;
+  }
+  .menu-card-badge{
+    width:56px;
+    height:56px;
+    border-radius:50%;
+    background:#141210;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    line-height:1.05;
+    box-shadow:0 6px 16px rgba(20,8,3,0.35);
+    border:2px solid rgba(255,255,255,0.15);
+  }
+  .menu-card-badge span{
+    display:block;
+    font-size:10.5px;
+    font-weight:600;
+  }
+  .menu-card-badge small{
+    display:block;
+    font-family:'Manrope',sans-serif;
+    font-style:normal;
+    font-size:6.5px;
+    letter-spacing:.5px;
+    opacity:.85;
+    margin-top:1px;
+  }
+  .menu-card h3{
+    margin-top:22px;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-weight:600;
+    font-size:clamp(20px,2vw,25px);
+    color:var(--espresso);
+    letter-spacing:.2px;
+    line-height:1.2;
+  }
+  .menu-card-tag{
+    display:block;
+    margin-top:10px;
+    font-family:'Manrope',sans-serif;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:var(--espresso-soft);
+    opacity:.75;
+  }
+  .menu-card-tag .star{
+    color:var(--gold);
+    letter-spacing:1px;
+  }
+
+  @media (max-width:1080px){
+    .menu-grid{grid-template-columns:repeat(3,minmax(0,240px));gap:38px 26px;}
+  }
+  @media (max-width:780px){
+    .menu-grid{grid-template-columns:repeat(2,minmax(0,240px));gap:34px 24px;}
+  }
+  @media (max-width:560px){
+    .menu-grid{grid-template-columns:minmax(0,240px);gap:30px;}
+    .hero-content{padding:130px 20px 56px;}
+  }
+
+  /* Tablet + mobile hero fit */
+  @media (max-width:860px){
+    .menu-hero{max-height:none;}
+    .hero-bg img{object-position:62% center;}
+    .hero-bg::after{
+      background:linear-gradient(180deg, rgba(30,14,7,0.55) 0%, rgba(30,14,7,0.30) 30%, rgba(24,11,5,0.88) 100%);
+    }
+    .hero h1{font-size:clamp(30px,8vw,44px);}
+    .hero p.lede{font-size:15px;line-height:1.65;max-width:460px;}
+    .eyebrow{margin-bottom:18px;}
+  }
+
+  /* Short landscape screens (small laptops / phones on their side) */
+  @media (max-height:600px) and (min-width:561px){
+    .menu-hero{min-height:620px;}
+    .hero-content{padding-top:120px;padding-bottom:40px;}
+  }
+
+  /* ---------- HOT CHOCOLATE SECTION ---------- */
+  .hot-chocolate-section{
+    padding:70px clamp(20px,4vw,56px) 110px;
+    background-image:linear-gradient(135deg, rgba(251,243,230,0.70) 0%, rgba(251,243,230,0.65) 50%, rgba(251,243,230,0.70) 100%), url('chocolatebg.jpeg');
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+    text-align:center;
+  }
+  .hot-chocolate-heading{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-weight:600;
+    font-size:clamp(32px,4vw,48px);
+    color:var(--espresso);
+    margin-bottom:60px;
+    letter-spacing:0.5px;
+  }
+  .hot-chocolate-content{
+    max-width:1240px;
+    margin:0 auto;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items:center;
+    gap:25px;
+  }
+  .chocolate-images-row{
+    display:contents;
+  }
+  .chocolate-image{
+    flex:0 1 300px;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 10px 40px rgba(20,8,3,0.15);
+    aspect-ratio:1/1;
+  }
+  .chocolate-image img{
+    width:100%;
+    height:100%;
+    display:block;
+    object-fit:cover;
+  }
+  .video-container{
+    flex:0 1 300px;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 10px 40px rgba(20,8,3,0.15);
+    aspect-ratio:1/1;
+  }
+  .video-container video{
+    width:100%;
+    height:100%;
+    display:block;
+    object-fit:cover;
+  }
+  .chocolate-description{
+    margin-top:60px;
+    max-width:700px;
+    margin-left:auto;
+    margin-right:auto;
+    text-align:center;
+  }
+  .chocolate-tagline{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-weight:600;
+    font-size:clamp(18px,2.5vw,24px);
+    color:var(--espresso);
+    margin-bottom:16px;
+    line-height:1.6;
+    letter-spacing:0.3px;
+  }
+  .chocolate-detail{
+    font-family:'Manrope',sans-serif;
+    font-size:16px;
+    color:var(--espresso-soft);
+    line-height:1.8;
+    opacity:0.85;
+  }
+  @media (max-width:1024px){
+    .hot-chocolate-section{
+      background-attachment:scroll;
+    }
+    .hot-chocolate-content{
+      flex-direction:column;
+      gap:30px;
+    }
+    .chocolate-image{
+      flex:0 1 100%;
+      max-width:350px;
+      aspect-ratio:1/1;
+    }
+    .video-container{
+      flex:0 1 100%;
+      max-width:350px;
+      aspect-ratio:1/1;
+    }
+  }
+
+  /* ---------- CHOCOLATE REEL SECTION ---------- */
+  .chocolate-reel-section{
+    padding:80px clamp(20px,4vw,56px);
+    background-image:linear-gradient(135deg, rgba(251,243,230,0.70) 0%, rgba(251,243,230,0.65) 50%, rgba(251,243,230,0.70) 100%), url('chocolatebg.jpeg');
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+    text-align:center;
+  }
+  .reel-heading{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-weight:600;
+    font-size:clamp(32px,4vw,48px);
+    color:var(--espresso);
+    margin-bottom:50px;
+    letter-spacing:0.5px;
+  }
+  .reel-wrapper{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:40px;
+    max-width:1200px;
+    margin:0 auto;
+  }
+  .reel-side-text{
+    flex:1;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:clamp(14px,1.8vw,20px);
+    color:#5A3218;
+    line-height:1.8;
+    letter-spacing:0.3px;
+  }
+  .reel-side-text.left{
+    text-align:right;
+  }
+  .reel-side-text.right{
+    text-align:left;
+  }
+  .reel-container{
+    max-width:380px;
+    margin:0 auto;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 15px 50px rgba(20,8,3,0.2);
+    aspect-ratio:9/12;
+  }
+  .reel-container video{
+    width:100%;
+    height:100%;
+    display:block;
+    object-fit:cover;
+  }
+  @media (max-width:768px){
+    .chocolate-reel-section{
+      padding:60px clamp(20px,4vw,56px);
+      background-attachment:scroll;
+    }
+    .reel-wrapper{
+      flex-direction:column;
+      gap:20px;
+    }
+    .reel-side-text{
+      text-align:center !important;
+      max-width:300px;
+      margin:0 auto;
+    }
+    .reel-container{
+      max-width:300px;
+      aspect-ratio:9/12;
+    }
+  }
+
+  /* ---------- FLAVOUR MARQUEE ---------- */
+  .flavor-marquee-section{
+    background:
+      linear-gradient(rgba(20,9,4,0.78),rgba(20,9,4,0.78)),
+      url('artisangelatobg.png') center/cover no-repeat;
+    background-attachment:fixed;
+    padding:60px 0 48px;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+    position:relative;
+  }
+  .flavor-marquee-heading{
+    text-align:center;
+    padding:0 20px 34px;
+  }
+  .flavor-marquee-title{
+    display:block;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-weight:700;
+    font-size:clamp(34px,5vw,58px);
+    color:var(--sunset);
+    letter-spacing:0.5px;
+    text-shadow:0 4px 24px rgba(0,0,0,0.35);
+  }
+  .flavor-marquee-rule{
+    width:70px;
+    height:1px;
+    background:var(--gold);
+    margin:20px auto 0;
+    opacity:.8;
+  }
+  .flavor-marquee-section::before,
+  .flavor-marquee-section::after{
+    content:"";
+    position:absolute;
+    top:0;
+    bottom:0;
+    width:clamp(40px,8vw,140px);
+    z-index:2;
+    pointer-events:none;
+  }
+  .flavor-marquee-section::before{
+    left:0;
+    background:linear-gradient(90deg,rgba(20,9,4,0.95) 0%,rgba(20,9,4,0) 100%);
+  }
+  .flavor-marquee-section::after{
+    right:0;
+    background:linear-gradient(270deg,rgba(20,9,4,0.95) 0%,rgba(20,9,4,0) 100%);
+  }
+  .flavor-row{
+    width:100%;
+    overflow:hidden;
+  }
+  .flavor-track{
+    display:flex;
+    width:max-content;
+  }
+  .flavor-set{
+    display:inline-block;
+    white-space:nowrap;
+    font-family:'Playfair Display', serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:clamp(15px,2.1vw,24px);
+    color:var(--gold);
+    letter-spacing:0.4px;
+    padding-right:0;
+  }
+  .flavor-row.scroll-ltr .flavor-track{
+    animation:marqueeLTR 160s linear infinite;
+  }
+  .flavor-row.scroll-rtl .flavor-track{
+    animation:marqueeRTL 160s linear infinite;
+  }
+  @keyframes marqueeLTR{
+    from{ transform:translateX(-50%); }
+    to{ transform:translateX(0); }
+  }
+  @keyframes marqueeRTL{
+    from{ transform:translateX(0); }
+    to{ transform:translateX(-50%); }
+  }
+  @media (max-width:768px){
+    .flavor-marquee-section{
+      padding:32px 0;
+      gap:12px;
+    }
+    .flavor-row.scroll-ltr .flavor-track,
+    .flavor-row.scroll-rtl .flavor-track{
+      animation-duration:90s;
+    }
+  }
+  @media (max-width:768px){
+    .flavor-marquee-section{
+      background-attachment:scroll;
+    }
+  }
+
+  /* ---------- CRAFTED WITH LOVE (MANGO SORBET) ---------- */
+  .mango-sorbet-section{
+    padding:80px clamp(20px,4vw,56px);
+    background:var(--cream-deep);
+    text-align:center;
+  }
+  .mango-heading{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-weight:600;
+    font-size:clamp(32px,4vw,48px);
+    color:var(--espresso);
+    margin-bottom:50px;
+    letter-spacing:0.5px;
+  }
+  .mango-wrapper{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:40px;
+    max-width:1200px;
+    margin:0 auto;
+  }
+  .mango-side-text{
+    flex:1;
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:clamp(14px,1.8vw,20px);
+    color:var(--terracotta);
+    line-height:1.8;
+    letter-spacing:0.3px;
+  }
+  .mango-side-text.left{
+    text-align:right;
+  }
+  .mango-side-text.right{
+    text-align:left;
+  }
+  .mango-video-container{
+    max-width:380px;
+    margin:0 auto;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 15px 50px rgba(20,8,3,0.2);
+    aspect-ratio:9/12;
+  }
+  .mango-video-container video{
+    width:100%;
+    height:100%;
+    display:block;
+    object-fit:cover;
+  }
+  @media (max-width:768px){
+    .mango-sorbet-section{
+      padding:60px clamp(20px,4vw,56px);
+    }
+    .mango-wrapper{
+      flex-direction:column;
+      gap:20px;
+    }
+    .mango-side-text{
+      text-align:center !important;
+      max-width:300px;
+      margin:0 auto;
+    }
+    .mango-video-container{
+      max-width:300px;
+      aspect-ratio:9/12;
+    }
+  }
+
+  /* ---------- FOOTER ---------- */
+  .site-footer{
+    background:var(--espresso);
+    color:rgba(255,253,249,0.72);
+    padding:80px clamp(20px,4vw,56px) 0;
+  }
+
+  .footer-top{
+    max-width:1240px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:1.4fr 1fr 1fr 1.2fr;
+    gap:48px;
+    padding-bottom:56px;
+    border-bottom:1px solid rgba(255,253,249,0.12);
+  }
+
+  .footer-brand .brand{
+    color:var(--white);
+  }
+
+  .footer-tag{
+    margin-top:18px;
+    max-width:320px;
+    font-size:14px;
+    line-height:1.75;
+    color:rgba(255,253,249,0.6);
+  }
+
+  .footer-col h4{
+    font-family:'Playfair Display',serif;
+    font-style:italic;
+    font-weight:600;
+    font-size:16px;
+    color:var(--white);
+    margin-bottom:20px;
+  }
+
+  .footer-col{
+    display:flex;
+    flex-direction:column;
+  }
+
+  .footer-col a,
+  .footer-col .footer-static{
+    color:rgba(255,253,249,0.65);
+    text-decoration:none;
+    font-size:14.5px;
+    margin-bottom:12px;
+    transition:color .25s ease;
+    width:fit-content;
+  }
+
+  .footer-col a:hover{
+    color:var(--sunset-soft);
+  }
+
+  .footer-bottom{
+    max-width:1240px;
+    margin:0 auto;
+    padding:26px 0;
+    text-align:center;
+    font-size:12.5px;
+    letter-spacing:.5px;
+    color:rgba(255,253,249,0.4);
+  }
+
+  @media (max-width:860px){
+    .footer-top{
+      grid-template-columns:1fr 1fr;
+      row-gap:40px;
+    }
+    .footer-brand{
+      grid-column:1 / -1;
+    }
+  }
+
+  @media (max-width:560px){
+    .footer-top{
+      grid-template-columns:1fr;
+      text-align:left;
+    }
+    .footer-brand .brand{
+      justify-content:flex-start;
+    }
+    .footer-tag{
+      margin-left:0;
+      margin-right:auto;
+    }
+    .footer-col a,
+    .footer-col .footer-static{
+      margin-left:0;
+      margin-right:auto;
+    }
+  }
+
+  /* ---------- TOP BAR (email + social) ---------- */
+  .topbar{
+    position:fixed;top:0;left:0;right:0;z-index:101;
+    height:38px;display:flex;align-items:center;justify-content:flex-end;gap:20px;
+    padding:0 clamp(20px,4vw,56px);color:#FFFDF9;
+    transition:transform .4s ease, opacity .3s ease;
+  }
+  .topbar a{
+    display:inline-flex;align-items:center;gap:8px;color:#FFFDF9;text-decoration:none;
+    font-family:'Manrope',sans-serif;font-size:13px;font-weight:500;letter-spacing:.3px;
+    opacity:.9;transition:opacity .25s ease, color .25s ease;
+  }
+  .topbar a:hover{opacity:1;color:#E3A857;}
+  .topbar svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
+  .topbar svg.solid{fill:currentColor;stroke:none;}
+  .topbar svg .fill{fill:currentColor;stroke:none;}
+  .topbar-social{display:flex;align-items:center;gap:16px;}
+  body.scrolled .topbar{transform:translateY(-100%);opacity:0;pointer-events:none;}
+  body.menu-open .topbar{opacity:0;pointer-events:none;}
+  .site-header{top:38px;transition:top .4s ease;}
+  body.scrolled .site-header{top:0;}
+  @media (max-width:860px){
+    .topbar{height:34px;gap:14px;}
+    .topbar .topbar-email span{display:none;}
+    .site-header{top:34px;}
+    body.scrolled .site-header{top:0;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar" id="topbar">
+  <a class="topbar-email" href="mailto:gelateriacremona7@gmail.com" aria-label="Email us">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+    <span>gelateriacremona7@gmail.com</span>
+  </a>
+  <div class="topbar-social">
+    <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">
+      <svg class="solid" viewBox="0 0 320 512" aria-hidden="true"><path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/></svg>
+    </a>
+    <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle class="fill" cx="17.2" cy="6.8" r="1.1"/></svg>
+    </a>
+    <a href="https://www.tiktok.com/" target="_blank" rel="noopener" aria-label="TikTok">
+      <svg class="solid" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+    </a>
+  </div>
+</div>
+
+<header class="site-header">
+  <a href="index.html" class="brand">
+    <img class="brand-mark" src="glogo.png" alt="Gelateria Cremona logo">
+    <span class="brand-text">
+      <span class="name">Gelateria</span><span class="name-sub">Cremona</span>
+    </span>
+  </a>
+
+  <div class="nav-toggle" id="navToggle" role="button" aria-label="Toggle menu" aria-expanded="false" tabindex="0">
+    <span></span>
+  </div>
+
+  <nav class="nav-pill" id="navPill">
+    <a href="index.html">Home</a>
+    <a href="about.html">About Us</a>
+    <a href="menu.html">Menu</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="blog.html">Blog</a>
+    <a href="review.html">Reviews</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<!-- HERO SECTION -->
+<section class="hero menu-hero">
+  <div class="hero-bg">
+    <img src="menuhero.png" alt="Three gelato cones - chocolate, orange, and mango - on a display stand">
+  </div>
+
+  <div class="hero-content">
+    <span class="eyebrow reveal-up">Our Menu</span>
+    <h1 class="reveal-up" data-reveal-delay="0.15">Flavours Worth <em>Savouring</em></h1>
+    <p class="lede reveal-up" data-reveal-delay="0.3">Every scoop is churned fresh in small batches, using recipes carried over from Northern Italy and the best seasonal ingredients we can find.</p>
+  </div>
+</section>
+
+<!-- ITALIAN-STYLE SENDER HEADING -->
+<section class="menu-intro">
+  <div class="menu-intro-inner">
+    <span class="sender-heading reveal-up">Il Nostro Menu</span>
+    <span class="sender-subheading reveal-up" data-reveal-delay="0.15">Italian Tradition in Every Scoop</span>
+    <div class="menu-intro-rule reveal-up" data-reveal-delay="0.3"></div>
+  </div>
+</section>
+
+<!-- MENU GRID SECTION -->
+<section class="menu-grid-section">
+  <div class="menu-grid-container">
+    <div class="menu-grid" id="menuGrid">
+      <div class="menu-card">
+        <div class="menu-card-media">
+          <img src="gelatoimg.png" alt="Premium gelato cone" loading="lazy">
+        </div>
+        <h3>Gelato</h3>
+      </div>
+
+      <div class="menu-card">
+        <div class="menu-card-media">
+          <img src="sorbetimg.png" alt="Colorful sorbets" loading="lazy">
+        </div>
+        <h3>Sorbets</h3>
+      </div>
+
+      <div class="menu-card">
+        <div class="menu-card-media">
+          <img src="granetaimg.png" alt="Italian granita" loading="lazy">
+        </div>
+        <h3>Granita</h3>
+      </div>
+
+      <div class="menu-card">
+        <div class="menu-card-media">
+          <img src="hotchocolateimg.png" alt="Italian hot chocolate" loading="lazy">
+        </div>
+        <h3>Italian Hot Chocolate</h3>
+      </div>
+
+      <div class="menu-card">
+        <div class="menu-card-media">
+          <img src="affogatoimg.png" alt="Affogato with gelato" loading="lazy">
+        </div>
+        <h3>Affogato</h3>
+      </div>
+
+      <div class="menu-card">
+        <div class="menu-card-media">
+          <img src="milkshakeimg.png" alt="Gelato milkshake" loading="lazy">
+        </div>
+        <h3>Milkshakes</h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FLAVOUR MARQUEE SECTION -->
+<section class="flavor-marquee-section">
+  <div class="flavor-marquee-heading reveal-up">
+    <span class="flavor-marquee-title">Our Flavours</span>
+  </div>
+
+      <div class="flavor-row scroll-ltr">
+        <div class="flavor-track">
+          <span class="flavor-set">After Dinner Mint  &#10022;  Almond Date and Coconut  &#10022;  Almond and Peach  &#10022;  Almond  &#10022;  Amaretto  &#10022;  Apple Crumble  &#10022;  Almond and Rosemary  &#10022;  Amarena Cherry& Biscuits  &#10022;  Apple Strudel  &#10022;  Apricot Toffee  &#10022;  Apple Pie  &#10022;  Baileys Irish Coffee  &#10022;  Butterscotch  &#10022;  Bounty  &#10022;  Banana and Dates  &#10022;  Banana and Berries  &#10022;  Burnt Caramel  &#10022;  Banana and Honey  &#10022;  Brown Bread  &#10022;  Banana and Caramel  &#10022;  Baileys Irish Cream  &#10022;  Belgium Chocolate  &#10022;  Bunya Nuts  &#10022;  Chocolate and Cheesecake  &#10022;  Cassata  &#10022;  Chocolate and Chilli  &#10022;  Cinnamon  &#10022;  Chocolate and Ginger  &#10022;  Caramel  &#10022;  Cardamom and Orange  &#10022;  Chocolate Chip Mint  &#10022;  Carrot Cake  &#10022;  Cashew Nuts  &#10022;  Cardamom  &#10022;  Coffee and Maple Syrup  &#10022;  Chestnut  &#10022;  Chocolate Brownie  &#10022;  Chai Tea  &#10022;  Cherry Ripe  &#10022;  Cherry and Chocolate Fudge  &#10022;  Chocolate and Cointreau  &#10022;  </span>
+          <span class="flavor-set">After Dinner Mint  &#10022;  Almond Date and Coconut  &#10022;  Almond and Peach  &#10022;  Almond  &#10022;  Amaretto  &#10022;  Apple Crumble  &#10022;  Almond and Rosemary  &#10022;  Amarena Cherry& Biscuits  &#10022;  Apple Strudel  &#10022;  Apricot Toffee  &#10022;  Apple Pie  &#10022;  Baileys Irish Coffee  &#10022;  Butterscotch  &#10022;  Bounty  &#10022;  Banana and Dates  &#10022;  Banana and Berries  &#10022;  Burnt Caramel  &#10022;  Banana and Honey  &#10022;  Brown Bread  &#10022;  Banana and Caramel  &#10022;  Baileys Irish Cream  &#10022;  Belgium Chocolate  &#10022;  Bunya Nuts  &#10022;  Chocolate and Cheesecake  &#10022;  Cassata  &#10022;  Chocolate and Chilli  &#10022;  Cinnamon  &#10022;  Chocolate and Ginger  &#10022;  Caramel  &#10022;  Cardamom and Orange  &#10022;  Chocolate Chip Mint  &#10022;  Carrot Cake  &#10022;  Cashew Nuts  &#10022;  Cardamom  &#10022;  Coffee and Maple Syrup  &#10022;  Chestnut  &#10022;  Chocolate Brownie  &#10022;  Chai Tea  &#10022;  Cherry Ripe  &#10022;  Cherry and Chocolate Fudge  &#10022;  Chocolate and Cointreau  &#10022;  </span>
+        </div>
+      </div>
+      <div class="flavor-row scroll-rtl">
+        <div class="flavor-track">
+          <span class="flavor-set">Chocolate and Roses  &#10022;  Chocolate Fudge  &#10022;  Chocolate and Pear  &#10022;  Chocolate and Rum  &#10022;  Chocolate Duo  &#10022;  Chocolate and Tabasco Sauce  &#10022;  Chocolate Chip  &#10022;  Coffee and Pecan  &#10022;  Coconut and Lime  &#10022;  Coffee and Cinnamon  &#10022;  Creamino  &#10022;  Durian  &#10022;  Dutch Speculaas  &#10022;  Earl Grey Tea  &#10022;  Easter Chocolate  &#10022;  Espresso  &#10022;  Ferrero Rocher  &#10022;  Ginger Chocolate  &#10022;  Ginger  &#10022;  Gingerbread  &#10022;  Grapes  &#10022;  Gran Moka  &#10022;  Honeycomb  &#10022;  Hazelnut  &#10022;  Hot Cross Bun  &#10022;  Honey  &#10022;  Honey and Ginger  &#10022;  Italian Cream  &#10022;  Irish Coffee  &#10022;  Jaffa  &#10022;  Kinder  &#10022;  Kinder White Milk Chocolate  &#10022;  Lemon Meringue  &#10022;  Lactose Free Chocolate  &#10022;  Lamington  &#10022;  Lime Cheesecake  &#10022;  Lemon Myrtle and Macadamia  &#10022;  Limoncello  &#10022;  Liquorice  &#10022;  Lemon Myrtle  &#10022;  Yoghurt and Macadamia  &#10022;  </span>
+          <span class="flavor-set">Chocolate and Roses  &#10022;  Chocolate Fudge  &#10022;  Chocolate and Pear  &#10022;  Chocolate and Rum  &#10022;  Chocolate Duo  &#10022;  Chocolate and Tabasco Sauce  &#10022;  Chocolate Chip  &#10022;  Coffee and Pecan  &#10022;  Coconut and Lime  &#10022;  Coffee and Cinnamon  &#10022;  Creamino  &#10022;  Durian  &#10022;  Dutch Speculaas  &#10022;  Earl Grey Tea  &#10022;  Easter Chocolate  &#10022;  Espresso  &#10022;  Ferrero Rocher  &#10022;  Ginger Chocolate  &#10022;  Ginger  &#10022;  Gingerbread  &#10022;  Grapes  &#10022;  Gran Moka  &#10022;  Honeycomb  &#10022;  Hazelnut  &#10022;  Hot Cross Bun  &#10022;  Honey  &#10022;  Honey and Ginger  &#10022;  Italian Cream  &#10022;  Irish Coffee  &#10022;  Jaffa  &#10022;  Kinder  &#10022;  Kinder White Milk Chocolate  &#10022;  Lemon Meringue  &#10022;  Lactose Free Chocolate  &#10022;  Lamington  &#10022;  Lime Cheesecake  &#10022;  Lemon Myrtle and Macadamia  &#10022;  Limoncello  &#10022;  Liquorice  &#10022;  Lemon Myrtle  &#10022;  Yoghurt and Macadamia  &#10022;  </span>
+        </div>
+      </div>
+      <div class="flavor-row scroll-ltr">
+        <div class="flavor-track">
+          <span class="flavor-set">Los Chong  &#10022;  Lemon Cheesecake  &#10022;  Lime and Coconut  &#10022;  Marshmallow  &#10022;  Mandarin and Strawberry  &#10022;  Macadamia and Toffee  &#10022;  Mocha  &#10022;  Mint  &#10022;  Macadamia  &#10022;  Mascarpone and Nougat  &#10022;  Macadamia and Honey  &#10022;  Macadamia and White Chocolate  &#10022;  Macadamia and Mango  &#10022;  Mars  &#10022;  Mint and Ginger  &#10022;  Mung Bean  &#10022;  Nutella  &#10022;  Nougat  &#10022;  Orange and Date  &#10022;  Pannacotta  &#10022;  Pavlova  &#10022;  Peach and Amaretto  &#10022;  Pecan  &#10022;  Peanut Date and Cinnamon  &#10022;  Peanut and Maple Syrup  &#10022;  Pecan and Butterscotch  &#10022;  Peanut  &#10022;  Pear and Blue Vein  &#10022;  Pumpkin  &#10022;  Poison Apple  &#10022;  Pear and Ginger  &#10022;  Plain Vanilla  &#10022;  Plain Vanilla and Balsamic Vinegar  &#10022;  Popcorn  &#10022;  Raffaello  &#10022;  Ricotta  &#10022;  Rice Pudding  &#10022;  Rum and Raisin  &#10022;  Rompope  &#10022;  Saffron  &#10022;  </span>
+          <span class="flavor-set">Los Chong  &#10022;  Lemon Cheesecake  &#10022;  Lime and Coconut  &#10022;  Marshmallow  &#10022;  Mandarin and Strawberry  &#10022;  Macadamia and Toffee  &#10022;  Mocha  &#10022;  Mint  &#10022;  Macadamia  &#10022;  Mascarpone and Nougat  &#10022;  Macadamia and Honey  &#10022;  Macadamia and White Chocolate  &#10022;  Macadamia and Mango  &#10022;  Mars  &#10022;  Mint and Ginger  &#10022;  Mung Bean  &#10022;  Nutella  &#10022;  Nougat  &#10022;  Orange and Date  &#10022;  Pannacotta  &#10022;  Pavlova  &#10022;  Peach and Amaretto  &#10022;  Pecan  &#10022;  Peanut Date and Cinnamon  &#10022;  Peanut and Maple Syrup  &#10022;  Pecan and Butterscotch  &#10022;  Peanut  &#10022;  Pear and Blue Vein  &#10022;  Pumpkin  &#10022;  Poison Apple  &#10022;  Pear and Ginger  &#10022;  Plain Vanilla  &#10022;  Plain Vanilla and Balsamic Vinegar  &#10022;  Popcorn  &#10022;  Raffaello  &#10022;  Ricotta  &#10022;  Rice Pudding  &#10022;  Rum and Raisin  &#10022;  Rompope  &#10022;  Saffron  &#10022;  </span>
+        </div>
+      </div>
+      <div class="flavor-row scroll-rtl">
+        <div class="flavor-track">
+          <span class="flavor-set">Salted Chocolate and Almond Toffee  &#10022;  Sticky Date Pudding  &#10022;  Strawberry and Balsamic Vinegar  &#10022;  Strawberry Cheesecake  &#10022;  Snickers  &#10022;  Strawberry and Roses White Chocolate Pieces  &#10022;  Salted Macadamia and Toffee  &#10022;  Saffron and Rosewater  &#10022;  St Valentino Roses and Strawberry  &#10022;  Sweet Corn  &#10022;  Sweet Potato  &#10022;  Toblerone  &#10022;  Tiramisu  &#10022;  Tim Tam  &#10022;  Thai Milk Tea  &#10022;  Triple Chocolate  &#10022;  Taro  &#10022;  Tamarind  &#10022;  Torroncino Affogato  &#10022;  Toffee  &#10022;  Tartufo Chocolate and Rum  &#10022;  Vanilla Bean  &#10022;  Vegemite  &#10022;  White Bacio  &#10022;  Walnut  &#10022;  Walnut Brittle  &#10022;  White Chocolate  &#10022;  White Sesame  &#10022;  Walnut and Caramel  &#10022;  Christmas Pudding  &#10022;  Yoghurt and Banana  &#10022;  Yoghurt and Raspberry  &#10022;  Yoghurt and Strawberry  &#10022;  Yoghurt and Honey  &#10022;  Yoghurt and Peach  &#10022;  Yoghurt and Cherry  &#10022;  Yoghurt  &#10022;  Zabaglione  &#10022;  Zabaglione and Berry Sauce  &#10022;  Zuppa Inglese Trifle  &#10022;  </span>
+          <span class="flavor-set">Salted Chocolate and Almond Toffee  &#10022;  Sticky Date Pudding  &#10022;  Strawberry and Balsamic Vinegar  &#10022;  Strawberry Cheesecake  &#10022;  Snickers  &#10022;  Strawberry and Roses White Chocolate Pieces  &#10022;  Salted Macadamia and Toffee  &#10022;  Saffron and Rosewater  &#10022;  St Valentino Roses and Strawberry  &#10022;  Sweet Corn  &#10022;  Sweet Potato  &#10022;  Toblerone  &#10022;  Tiramisu  &#10022;  Tim Tam  &#10022;  Thai Milk Tea  &#10022;  Triple Chocolate  &#10022;  Taro  &#10022;  Tamarind  &#10022;  Torroncino Affogato  &#10022;  Toffee  &#10022;  Tartufo Chocolate and Rum  &#10022;  Vanilla Bean  &#10022;  Vegemite  &#10022;  White Bacio  &#10022;  Walnut  &#10022;  Walnut Brittle  &#10022;  White Chocolate  &#10022;  White Sesame  &#10022;  Walnut and Caramel  &#10022;  Christmas Pudding  &#10022;  Yoghurt and Banana  &#10022;  Yoghurt and Raspberry  &#10022;  Yoghurt and Strawberry  &#10022;  Yoghurt and Honey  &#10022;  Yoghurt and Peach  &#10022;  Yoghurt and Cherry  &#10022;  Yoghurt  &#10022;  Zabaglione  &#10022;  Zabaglione and Berry Sauce  &#10022;  Zuppa Inglese Trifle  &#10022;  </span>
+        </div>
+      </div>
+</section>
+
+<!-- CHOCOLATE REEL SECTION -->
+<section class="chocolate-reel-section">
+  <h2 class="reel-heading reveal-up">Italian Hot Chocolate</h2>
+  <div class="reel-wrapper reveal-up" data-reveal-delay="0.15">
+    <div class="reel-side-text left">
+      Indulge in the rich, velvety texture of authentic Italian Hot Chocolate. Our recipe brings warmth and comfort to every cup.
+    </div>
+    
+    <div class="reel-container">
+      <video autoplay muted loop playsinline preload="metadata">
+        <source src="choco_reel.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <div class="reel-side-text right">
+      At Gelateria Cremona, we craft each cup with premium chocolate and a touch of Italian tradition. Pure indulgence in every sip.
+    </div>
+  </div>
+</section>
+
+<!-- CRAFTED WITH LOVE / MANGO SORBET SECTION -->
+<section class="mango-sorbet-section">
+  <h2 class="mango-heading reveal-up">Crafted with Love</h2>
+  <div class="mango-wrapper reveal-up" data-reveal-delay="0.15">
+    
+
+    <div class="mango-video-container">
+      <video autoplay muted loop playsinline preload="metadata">
+        <source src="mango.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="index.html" class="brand footer-logo">
+        <img class="brand-mark" src="glogo.png" alt="Gelateria Cremona logo">
+        <span class="brand-text">
+          <span class="name">Gelateria</span><span class="name-sub">Cremona</span>
+        </span>
+      </a>
+    </div>
+
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <a href="index.html">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="menu.html">Menu</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="blog.html">Blog</a>
+      <a href="review.html">Reviews</a>
+      <a href="contact.html">Contact</a>
+    </div>
+
+    <div class="footer-col">
+      <h4>Follow Us</h4>
+      <a href="https://www.instagram.com/gelateriacremona/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.facebook.com/gelateriacremona/" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://www.tiktok.com/@gelateriacremona" target="_blank" rel="noopener">TikTok</a>
+    </div>
+
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="mailto:gelateriacremona7@gmail.com">gelateriacremona7@gmail.com</a>
+      <span class="footer-static">5/151 Baroona Road, Paddington QLD 4064</span>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span>© 2026 Gelateria Cremona. All rights reserved.</span>
+  </div>
+</footer>
+
+<script>
+  const navToggle = document.getElementById('navToggle');
+  const navPill = document.getElementById('navPill');
+
+  function toggleNav(){
+    const isOpen = navPill.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', isOpen);
+  }
+
+  navToggle.addEventListener('click', toggleNav);
+  navToggle.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter' || e.key === ' '){
+      e.preventDefault();
+      toggleNav();
+    }
+  });
+
+  navPill.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      if(navPill.classList.contains('open')){
+        navPill.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+
+  const menuCards = document.querySelectorAll('.menu-card');
+  const menuObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if(entry.isIntersecting){
+        setTimeout(() => entry.target.classList.add('in-view'), i * 90);
+        menuObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+  menuCards.forEach(card => menuObserver.observe(card));
+
+  // Scroll-triggered fade-up for text (.reveal-up)
+  const revealElements = document.querySelectorAll('.reveal-up');
+
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if(entry.isIntersecting){
+        const delay = entry.target.dataset.revealDelay || 0;
+        setTimeout(() => {
+          entry.target.classList.add('is-visible');
+        }, delay * 1000);
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  revealElements.forEach((element, index) => {
+    if(!element.dataset.revealDelay){
+      element.dataset.revealDelay = (index % 3) * 0.15;
+    }
+    revealObserver.observe(element);
+  });
+</script>
+
+
+<script>
+  (function(){
+    var ticking=false;
+    function update(){document.body.classList.toggle('scrolled', window.scrollY>10);ticking=false;}
+    window.addEventListener('scroll',function(){if(!ticking){requestAnimationFrame(update);ticking=true;}},{passive:true});
+    update();
+    var pill=document.getElementById('navPill');
+    if(pill){
+      new MutationObserver(function(){document.body.classList.toggle('menu-open',pill.classList.contains('open'));})
+        .observe(pill,{attributes:true,attributeFilter:['class']});
+    }
+  })();
+</script>
+</body>
+</html>
